@@ -106,7 +106,9 @@ public class BatteryOptimizerPlugin implements FlutterPlugin, MethodCallHandler,
             String packageName = context.getPackageName();
             intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
             intent.setData(Uri.parse("package:" + packageName));
-            activity.startActivity(intent);
+            if (activity != null) {
+                activity.startActivity(intent);
+            }
 
             return true;
         }
@@ -137,7 +139,9 @@ public class BatteryOptimizerPlugin implements FlutterPlugin, MethodCallHandler,
         Intent intent = new Intent();
         intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
         try {
-            activity.startActivity(intent);
+            if (activity != null) {
+                activity.startActivity(intent);
+            }
         } catch (ActivityNotFoundException e) {
             // if exception is thrown, then no activity is found to handle intent
             return Status.ACTIVITY_NOT_FOUND;
